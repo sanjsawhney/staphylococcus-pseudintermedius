@@ -230,7 +230,10 @@ ggplot(bar_cog, aes(COG, Percentage))+
 
 </pre>
 
-# ----------------------------------------Figure 2D: ARG count histogram distribution----------------------------------------
+## Figure 2D: ARG count histogram distribution
+
+<pre>
+
 library(ggplot2)
 
 # Create data frame
@@ -253,8 +256,12 @@ ggplot(data=df_arg_count_mrsp, aes(x=ARG_ct, y=Isolate_ct,fill=Cohort)) +
   xlab("ARG Count")+
   ylab("Number of Isolates")
 
+</pre>
 
-# ----------------------------------------Suppl Figure 6A: snp-sites-----------------------------------
+## Suppl Figure 6A: snp-sites
+
+<pre>
+
 library(ggplot2)
 library(RColorBrewer)
 
@@ -281,8 +288,11 @@ ggplot(data=df_core_lineage, aes(x=Range,y=Count))+
   theme(text = element_text(),axis.text.x = element_text(size = 6, angle = 270, hjust=0, vjust = 0.5), plot.margin = margin(10, 30, 10, 10))+
     xlab("Core Genome SNPs (Range)")
 
+</pre>
 
-# --------------------------------------Figure 3A: Lineage & Strain cluster coverage x ANI--------------------------------------
+## Figure 3A: Lineage & Strain cluster coverage x ANI
+
+<pre>
 
 library(ggplot2)
 library(RColorBrewer)
@@ -311,7 +321,12 @@ gg_coverage<-ggplot(data=df_coverage_ani, aes(x=Coverage,y=ANI, color = Status))
 ggMarginal(gg_coverage, groupColour = TRUE, groupFill = TRUE, type = "histogram", xparams = list(binwidth = 0.0005), yparams = list(binwidth = 0.0000035) )
 ggMarginal(gg_coverage, groupColour = TRUE, groupFill = TRUE)
 
-# -----------------------------------------Figure 3B: Cluster Barplot-----------------------------------------
+</pre>
+
+## Figure 3B: Cluster Barplot
+
+<pre>
+
 library(ggplot2)
 
 # Read in cohorts barplot file
@@ -335,8 +350,12 @@ ggplot(data=df_cluster, aes(x=Isolates, y=Clusters, fill=Cohort)) +
  #ylab("Number of Clusters")+
   theme(legend.position = c(0.75, 0.88), axis.title=element_blank(),  legend.title=element_text(face="bold"),legend.text=element_text(face="bold"))
 
+</pre>
 
-# --------------------------------------Figure 3C: GWAS heatmap----------------------------------------------------------------
+## Figure 3C: GWAS heatmap
+
+<pre>
+
 library(reshape2)
 library(dendsort)
 library(pheatmap)
@@ -388,8 +407,12 @@ pheatmap(gene_pres.abs_df_sig,
          angle_col =270,
          legend = F)
 
+</pre>
 
-# -----------------------------------------Figure 4A: Scoary CRISPR bubble plot-----------------------------------------
+## Figure 4A: Scoary CRISPR bubble plot
+
+<pre>
+
 library(ggplot2)
 library(scales)
 
@@ -412,7 +435,12 @@ ggplot(df_crispr_scoary, aes(x = x, y = y,size = Shared,fill=Percent_Total))+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 270, vjust = 0.5), axis.ticks=element_blank(), axis.title=element_blank(), panel.grid.minor = element_blank(), panel.grid.major = element_blank(), panel.border = element_rect(colour = "black"))
 
-# ----------------------------------------Figure 4B: Total Cohort - CRISPR bubble plot----------------------------------------
+</pre>
+
+## Figure 4B: Total Cohort - CRISPR bubble plot
+
+<pre>
+
 library(reshape2)
 
 # Read in ANI matrix
@@ -547,8 +575,11 @@ intra_inter_shared_spacer_pvalues<-c(0.0333,0.224,0.0004)
 
 p.adjust(intra_inter_shared_spacer_pvalues, method = "fdr")
 
+</pre>
 
-# ----------------------------------------Figure 4C: Shared spacer ct x ANI----------------------------------------
+## Figure 4C: Shared spacer ct x ANI
+
+<pre>
 
 library(ggplot2)
 library(ggpubr)
@@ -570,8 +601,11 @@ ggplot(data=df_spacer_ani, aes(x=ANI,y=shared_spacer_ct))+
   ylab("Shared spacers (count)")+
   theme(legend.title=element_blank(), axis.title=element_text(face="bold"), axis.text=element_text(face="bold"))
 
-# -------------Figure 5B, Suppl Figure 7: COG Genes - Non-synonymous vs Synonymous mts Fishers's exact test (BLAST)-------------
+</pre>
 
+## Figure 5B, Suppl Figure 7: COG Genes - Non-synonymous vs Synonymous mts Fishers's exact test (BLAST)
+
+<pre>
 
 # Read in COG data file - NEW (221113)
 df_cog <- read.csv('221113_COG_fishersexact_blast.csv',
@@ -604,7 +638,11 @@ binom.test(5, 91, 0.0176376269374666, alternative = "greater")
 # SSO COG: Defense Mechanisms (V): two-sided = p-value = 1
 binom.test(0, 34, 0.0176376269374666, alternative = "two.sided")
 
-# -----------------------------------------Figure 5C: 221113 Permutation test-----------------------------------------
+</pre>
+
+## Figure 5C: 221113 Permutation test
+
+<pre>
 
 library(dplyr)
 
@@ -682,3 +720,5 @@ ggplot(data=df_genes_mutated, aes(x=Genes, y=Count, fill=Group)) +
   theme(axis.title = element_text(size=12,face="bold"), axis.text = element_text(size=12,face="bold"),legend.position="none")+
   xlab("Number of Genes Accruing Non-\nSynonymous SNSes in Multiple Clusters")+
   ylab("Count (10,000 simulations)")
+
+</pre>
