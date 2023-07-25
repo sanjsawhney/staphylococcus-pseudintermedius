@@ -1,52 +1,52 @@
 # staphylococcus-pseudintermedius
 This repository contains all code used in Sawhney &amp; Vargas et al. (2023).
 
-# -------------------------Figure 1B, Suppl Figure 3B: Accessory_Genome_PCoA---------------------------------------------------
+# Figure 1B, Suppl Figure 3B: Accessory_Genome_PCoA
 
-# load vegan for jaccard distance, ape for pcoa, ggplot2 for visualization
+#load vegan for jaccard distance, ape for pcoa, ggplot2 for visualization
 library(ape)
 library(vegan)
 library(ggplot2)
 
-# Read in accessorygenome.csv (.Rtab file)
+#Read in accessorygenome.csv (.Rtab file)
 df_accessorygenome<-read.csv('211207_accessorygenome_pseud_pgap_488.csv',
                             header = T,
                             row.names = 1)
 
-# Calculate jaccard distance. Set to matrix
+#Calculate jaccard distance. Set to matrix
 jaccard_accessorygenome<-vegdist(df_accessorygenome, method='jaccard',binary=TRUE)
 jaccard_accessorygenome<-as.matrix(jaccard_accessorygenome)
 write.csv(jaccard_accessorygenome,"jaccard_distance_501_pseud_delph.csv")
 
-# Make PCoA (correction is to account for negative eigenvalues) - can use "lingoes" or "cailliez"
-# Look through pcoa_accessorygenome_corr on first use to gain an understanding of what $values, $vectors, and $vectors.cor mean
+#Make PCoA (correction is to account for negative eigenvalues) - can use "lingoes" or "cailliez"
+#Look through pcoa_accessorygenome_corr on first use to gain an understanding of what $values, $vectors, and $vectors.cor mean
 pcoa_accessorygenome_corr<-pcoa(jaccard_accessorygenome, correction = "lingoes")
 
-# Get PCoA vectors to plot ordination as axis x axis. Set to data frame
+#Get PCoA vectors to plot ordination as axis x axis. Set to data frame
 pcoavectors_accessorygenome_corr<-pcoa_accessorygenome_corr$vectors.cor
 pcoavectors_accessorygenome_corr<-as.data.frame(pcoavectors_accessorygenome_corr)
 
-# Add cohort metadata
+#Add cohort metadata
 write.csv(pcoavectors_accessorygenome_corr[,c("Axis.1","Axis.2")],"pcoa_values.csv")
 pcoavectors_accessorygenome_corr=read.csv("pcoa_values.csv", sep=",")
 
-# Get % variance captured by each axis. Rel_corr_eig = Relative eigenvalues following correction method. Sums to 1.0000
+#Get % variance captured by each axis. Rel_corr_eig = Relative eigenvalues following correction method. Sums to 1.0000
 rel_eigen_accessorygenome_corr<-pcoa_accessorygenome_corr$values$Rel_corr_eig
 rel_eigen_accessorygenome_corr
 
 
-# Scree plot
+#Scree plot
 barplot(pcoa_accessorygenome_corr$values$Rel_corr_eig[1:10])
 biplot.pcoa(pca_accessorygenome_corr, df_accessorygenome)
 
-# Read in metadata.csv
+#Read in metadata.csv
 #metadata for Figure 1B
 metadata_df<-read.csv('sig_metadata_493_pseud_redefined_only.csv',
                       sep=",",
                       header = T,
                       row.names = 1)
 
-# plot Figure 1B
+#plot Figure 1B
 ggplot(
   pcoavectors_accessorygenome_corr,aes(x=Axis.1, y=Axis.2))+
   geom_point(shape=21, color = "black", size = 1, stroke = 1.2, show.legend = TRUE)+
@@ -59,7 +59,7 @@ ggplot(
   
 
 
-# plot Figure S3B
+#plot Figure S3B
 ggplot(
   pcoavectors_accessorygenome_corr,aes(x=Axis.1, y=Axis.2))+
   geom_point(shape=21, color = "black", size = 0.75, stroke = 1.5, show.legend = TRUE)+
